@@ -1,34 +1,34 @@
-import css from "./VoteOptions.module.css";
-import type { VoteType } from "../../types/votes";
+import css from "./VoteStats.module.css";
+import type { Votes } from "../../types/votes";
 
-interface VoteOptionsProps {
-  onVote: (type: VoteType) => void;
-  onReset: () => void;
-  canReset: boolean;
+interface VoteStatsProps {
+  votes: Votes;
+  totalVotes: number;
+  positiveRate: number;
 }
 
-export default function VoteOptions({
-  onVote,
-  onReset,
-  canReset,
-}: VoteOptionsProps) {
+export default function VoteStats({
+  votes,
+  totalVotes,
+  positiveRate,
+}: VoteStatsProps) {
   return (
     <div className={css.container}>
-      <button className={css.button} onClick={() => onVote("good")}>
-        Good
-      </button>
-      <button className={css.button} onClick={() => onVote("neutral")}>
-        Neutral
-      </button>
-      <button className={css.button} onClick={() => onVote("bad")}>
-        Bad
-      </button>
-
-      {canReset && (
-        <button className={`${css.button} ${css.reset}`} onClick={onReset}>
-          Reset
-        </button>
-      )}
+      <p className={css.stat}>
+        Good: <strong>{votes.good}</strong>
+      </p>
+      <p className={css.stat}>
+        Neutral: <strong>{votes.neutral}</strong>
+      </p>
+      <p className={css.stat}>
+        Bad: <strong>{votes.bad}</strong>
+      </p>
+      <p className={css.stat}>
+        Total: <strong>{totalVotes}</strong>
+      </p>
+      <p className={css.stat}>
+        Positive: <strong>{positiveRate}%</strong>
+      </p>
     </div>
   );
 }
